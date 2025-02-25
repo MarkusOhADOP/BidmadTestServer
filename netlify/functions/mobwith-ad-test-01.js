@@ -12,7 +12,7 @@ export const handler = async () => {
         target: "mobmixer",
         data: [
           {
-            custom09: "",
+            custom09: "https://bidmad-test-server.netlify.app?checker=click",
             aLogoDefault:
               "https://mixer.mobon.net/view?seq=3f23dd75-d9c2-4120-b3d8-a09a03703eb1&viewType=LOGO",
             descWeb: "",
@@ -34,7 +34,7 @@ export const handler = async () => {
               "https://mixer.mobon.net/view?seq=3f23dd75-d9c2-4120-b3d8-a09a03703eb1&viewType=LOGO",
             aUrl: "https://mixer.mobon.net/click?sspNo=2539&dspTpCode=11&pltfomTpCode=03&userId=adserver&ad_url=https%3A%2F%2Ftr-asia.adsmoloco.com%2Frtb%2Fclick%3Fexchange%3DTPMN%26imp_id%3Dde939800-8ec2-46af-a8c3-8b1ef4576f96%26info%3DChBDUKr1FdRAkLs2OTlZYz66EM-P9b0GGhQIAhoQZcA2rz9NTryHmHdcROnv4iACKgAyAA%26campaign_name%3DanZfiljZBgczQMv6_Biattributable%26dcr%3D&dspClick=https%3A%2F%2Fasia-seoul-statistics.tpmn.io%2Fmatclick.tpmn%3Fai%3D2539_960571015%2528APP%2529%26pi%3D27%26adid%3D65C036AF-3F4D-4EBC-8798-775C44E9EFE2%26dspid%3D129%26sspid%3D34%26hashid%3Dd7f08fe7d4846bf5cbbf35dca6c2169a%26bidid%3Dde939800-8ec2-46af-a8c3-8b1ef4576f96%26timestamp%3D1740457935%26tagid%3DD_static%26tsid%3D38189effc22547c787a76e2e3162d4d11740457935%26appbundle%3D960571015%26adtypecd%3D2502%26chtypecd%3D3501%26aw%3D0%26ah%3D0%26mid%3Dee2cdbcfc0dd61058362e44029799bfb%26clkloc%3D%26scurl%3D%26tu%3D",
             dcRate: 0,
-            custom08: "",
+            custom08: "https://bidmad-test-server.netlify.app?checker=imgimp",
             aDesc2: "리얼 후기 220만건 확인",
             remarks: "",
             pImgBkg: "",
@@ -55,7 +55,7 @@ export const handler = async () => {
             },
           },
         ],
-        impUrl: "https://bidmad-test-server.netlify.app",
+        impUrl: "https://bidmad-test-server.netlify.app?checker=imp",
         adCnt: 1,
         logoDefault: "https://bidmad-test-server.netlify.app/info.circle.png",
         siteUrl:
