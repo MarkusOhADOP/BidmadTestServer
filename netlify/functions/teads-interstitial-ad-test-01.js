@@ -8,7 +8,7 @@ export const handler = async () => {
       type: "v",
       ads: {
         "3628d494-88f3-48e5-b8fc-1de5b260b7fb": {
-          adcode: "180029",
+          adcode: "127546",
           pubid: "",
           passback: "5d7f0a60-22b0-4ef8-b2d0-0abeb8976940",
           adtype: "56ad4c2b-c956-11ed-b4f4-026864a21938",
@@ -21,7 +21,7 @@ export const handler = async () => {
           height: "1230",
         },
         "5d7f0a60-22b0-4ef8-b2d0-0abeb8976940": {
-          adcode: "180029",
+          adcode: "127546",
           pubid: "",
           passback: "160fbfb0-d433-4681-a51e-ec844f442a79",
           adtype: "56ad4c2b-c956-11ed-b4f4-026864a21938",
@@ -34,7 +34,7 @@ export const handler = async () => {
           height: "1230",
         },
         "160fbfb0-d433-4681-a51e-ec844f442a79": {
-          adcode: "180029",
+          adcode: "127546",
           pubid: "",
           passback: "722231e4-297b-4435-89a1-0d241f371170",
           adtype: "56ad4c2b-c956-11ed-b4f4-026864a21938",
