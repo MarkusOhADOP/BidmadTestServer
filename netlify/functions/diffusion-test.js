@@ -6,6 +6,7 @@ export const handler = async () => {
       netIdx: "al48jd-allen-digitalcamp-net-idx",
       netName: "DigitalCamp",
       domain: "com.test.app",
+      statusCode: 200,
       seatbid: [
         {
           bid: [
