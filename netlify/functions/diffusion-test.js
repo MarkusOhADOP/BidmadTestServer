@@ -7,6 +7,7 @@ export const handler = async () => {
       netName: "DigitalCamp",
       domain: "com.test.app",
       statusCode: 200,
+      vidoeType: "VAST",
       seatbid: [
         {
           bid: [
