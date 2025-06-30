@@ -27,14 +27,11 @@ const response = {
                 object-fit: cover;
             }
         </style>
-        <script>
-            function landToPage() {
-                window.open("https://www.google.com", "_blank");
-            }
-        </script>
     </head>
     <body>
-        <img class="ad_box" src="https://cdn.pixabay.com/photo/2022/10/07/11/02/autumn-7504820_960_720.jpg" width="320" height="50" onclick="landToPage()" />
+        <a href="https://www.google.com" target="_blank" rel="noopener nofollow">
+            <img class="ad_box" src="https://cdn.pixabay.com/photo/2022/10/07/11/02/autumn-7504820_960_720.jpg" width="320" height="50" />
+        </a>
     </body>
 </html>`,
       pubid: "_blank",
