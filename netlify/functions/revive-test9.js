@@ -15,21 +15,23 @@ const response = {
             * { padding:0px; margin:0px; }
             a { text-decoration:none; color:#313534; line-height: 0; }
             html, body{
-                width: 300px;
-                height: 250px;
+                width: 320px;
+                height: 50px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
             .ad_box{
-                width:300px;
-                height:250px;
+                width:320px;
+                height:50px;
                 object-fit: cover;
             }
         </style>
     </head>
     <body>
-        <iframe src="https://www.jeomsin.co.kr/policy" width="300" height="250"></iframe>
+        <a href="https://www.google.com" target="_blank" rel="noopener nofollow">
+            <img class="ad_box" src="https://cdn.pixabay.com/photo/2022/10/07/11/02/autumn-7504820_960_720.jpg" width="320" height="50" />
+        </a>
     </body>
 </html>`,
       pubid: "_self",
