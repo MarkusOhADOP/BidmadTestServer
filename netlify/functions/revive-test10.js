@@ -29,9 +29,7 @@ const response = {
         </style>
     </head>
     <body>
-        <a href="https://www.naver.com" target="_blank">
-            <iframe src="https://www.jeomsin.co.kr/policy" width="300" height="250"></iframe>
-        </a>
+        <iframe src="https://www.jeomsin.co.kr/policy" width="300" height="250" onclick="document.location.href='https://www.naver.com'"></iframe>
     </body>
 </html>`,
       pubid: "_self",
