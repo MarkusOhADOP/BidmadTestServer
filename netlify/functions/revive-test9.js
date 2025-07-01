@@ -29,7 +29,7 @@ const response = {
         </style>
     </head>
     <body>
-        <iframe src="https://www.naver.com" width="300" height="250"></iframe>
+        <iframe src="https://www.jeomsin.co.kr/policy" width="300" height="250"></iframe>
     </body>
 </html>`,
       pubid: "_self",
