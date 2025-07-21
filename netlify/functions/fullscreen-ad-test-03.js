@@ -1,0 +1,52 @@
+export const handler = async () => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      command: "ok",
+      isFBB: "N",
+      status: "200",
+      type: "reward",
+      ads: {
+        "86f5a010-2881-48e0-aa8a-492b74b0e1ff": {
+          adcode: "ca-app-pub-3940256099942544/1712485313-fail",
+          pubid: "",
+          passback: "1165eb0b-1266-4157-a524-b38e79890e5a",
+          adtype: "640ab9f2-d8b8-11eb-8e02-021baddf8c08",
+          advidx: "e59d3e48-4dea-4003-b61a-8fb54d852774",
+          areaidx: "86f5a010-2881-48e0-aa8a-492b74b0e1ff",
+          adweight: "100",
+          adv_price: "0",
+          order: "1",
+          width: "720",
+          height: "1230",
+        },
+        "1165eb0b-1266-4157-a524-b38e79890e5a": {
+          adcode: "ca-app-pub-3940256099942544/1712485313-fail",
+          pubid: "",
+          passback: "7bd96390-39b7-42fc-be3e-3a623689aab5",
+          adtype: "640ab9f2-d8b8-11eb-8e02-021baddf8c08",
+          advidx: "0487afee-d781-4df6-8204-7235c663c361",
+          areaidx: "1165eb0b-1266-4157-a524-b38e79890e5a",
+          adweight: "100",
+          adv_price: "0",
+          order: "2",
+          width: "720",
+          height: "1230",
+        },
+        "7bd96390-39b7-42fc-be3e-3a623689aab5": {
+          adcode: "ca-app-pub-3940256099942544/1712485313",
+          pubid: "",
+          passback: "",
+          adtype: "ec4a2c71-58c8-11ed-a117-026864a21938",
+          advidx: "52c853ac-ceb8-43bc-86b3-ef4b5d72c462",
+          areaidx: "7bd96390-39b7-42fc-be3e-3a623689aab5",
+          adweight: "100",
+          adv_price: "0",
+          order: "3",
+          width: "720",
+          height: "1230",
+        },
+      },
+    }),
+  };
+};
