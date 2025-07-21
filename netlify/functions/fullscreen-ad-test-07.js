@@ -5,7 +5,7 @@ export const handler = async () => {
       command: "ok",
       isFBB: "N",
       status: "200",
-      type: "reward",
+      type: "interstitial",
       ads: {
         "86f5a010-2881-48e0-aa8a-492b74b0e1ff": {
           adcode:
