@@ -1,5 +1,5 @@
 export const handler = async () => {
-  await new Promise((resolve) => setTimeout(resolve, 1000 * 20));
+  await new Promise((resolve) => setTimeout(resolve, 1000 * 50));
 
   return {
     statusCode: 200,
