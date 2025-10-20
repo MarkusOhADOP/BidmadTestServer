@@ -23,7 +23,8 @@ export const handler = async () => {
               aSiteName: "MOBWITH ADS 마스터",
               aSiteUrl: "https://www.mobwithad.com",
               aSiteTitle: "MOBWITH ADS 마스터",
-              aLogoMainImgUrl: "",
+              aLogoMainImgUrl:
+                "https://cdn.pixabay.com/photo/2025/10/14/08/13/autumn-leaves-9893598_960_720.jpg",
               aLogoSubImgUrl: "",
             },
             adType: "banner",
