@@ -1,0 +1,68 @@
+export const handler = async () => {
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      code: "0000",
+      message: "SUCCESS",
+      data: {
+        zone: "10890443",
+        adCnt: 1,
+        externalInfo: {
+          externalId: "extra_fields_test",
+          logoMainImgUrl: "",
+          logoSubImgUrl: "",
+          logoLandingUrl: "",
+          impTrackers: [],
+          unexpectedField1: "should not cause crash",
+          unexpectedField2: 123,
+          unexpectedField3: { nested: "object" },
+        },
+        advertInfo: [
+          {
+            advertiserInfo: {
+              aSiteName: "",
+              aSiteUrl: "",
+              aSiteTitle: "",
+              aLogoMainImgUrl: "",
+              aLogoSubImgUrl: "",
+              extraAdvertiserField: "unexpected",
+            },
+            adType: "banner",
+            adPrdtYn: "Y",
+            adVideoUrl: "",
+            adImgUrl: "",
+            adImgUrlInfo: {
+              adImg120_600: "",
+              adImg160_600: "",
+              adImg250_250: "",
+              adImg300_250: "",
+              adImg320_50: "",
+              adImg320_100: "",
+              adImg320_480: "",
+              adImg720_120: "",
+              adImg720_1230: "",
+              adImg728_90: "",
+              adImg800_1500: "",
+              extraImageField: "unexpected",
+            },
+            adLandingUrl: "",
+            adImpTrackers: [],
+            adClickTrackers: [],
+            adDesc: "",
+            productInfo: {
+              pCode: "",
+              pName: "",
+              pPrice: "",
+              pDcRate: 0,
+              pDcPrice: "",
+              pDeliveryYn: "",
+              extraProductField: "unexpected",
+            },
+            extraAdField: "unexpected",
+          },
+        ],
+        extraDataField: "unexpected",
+      },
+    }),
+  };
+};
