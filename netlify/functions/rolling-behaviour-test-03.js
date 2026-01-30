@@ -23,8 +23,8 @@ export const handler = async () => {
           height: "50",
         },
         "rolling-test-03-ad-002": {
-          adcode: "INVALID-FYBER-CODE",
-          pubid: "",
+          adcode: "128703",
+          pubid: "INVALID-FYBER-PUBID",
           passback: "rolling-test-03-ad-003",
           adtype: "b0745bea-6069-11eb-8e02-021baddf8c08", // Fyber (will fail)
           advidx: "23503470-4e23-4a84-a77b-a9fe25deb784",
@@ -36,8 +36,8 @@ export const handler = async () => {
           height: "50",
         },
         "rolling-test-03-ad-003": {
-          adcode: "INVALID-UNITY-CODE",
-          pubid: "banner",
+          adcode: "4520003",
+          pubid: "INVALID-UNITY-PUBID",
           passback: "",
           adtype: "2e88609b-d916-11e9-9e1d-02c31b446301", // UnityAds (will fail)
           advidx: "23503470-4e23-4a84-a77b-a9fe25deb784",

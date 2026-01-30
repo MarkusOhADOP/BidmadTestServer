@@ -24,8 +24,8 @@ export const handler = async () => {
           height: "50",
         },
         "rolling-test-02-ad-002": {
-          adcode: "197405",
-          pubid: "",
+          adcode: "128703",
+          pubid: "544324",
           passback: "rolling-test-02-ad-003",
           adtype: "b0745bea-6069-11eb-8e02-021baddf8c08", // Fyber
           advidx: "23503470-4e23-4a84-a77b-a9fe25deb784",
@@ -37,8 +37,8 @@ export const handler = async () => {
           height: "50",
         },
         "rolling-test-02-ad-003": {
-          adcode: "5788011",
-          pubid: "banner",
+          adcode: "4520003",
+          pubid: "Banner_iOS",
           passback: "",
           adtype: "2e88609b-d916-11e9-9e1d-02c31b446301", // UnityAds
           advidx: "23503470-4e23-4a84-a77b-a9fe25deb784",
