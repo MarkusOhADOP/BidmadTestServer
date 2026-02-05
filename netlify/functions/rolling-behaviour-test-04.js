@@ -11,8 +11,7 @@ export const handler = async () => {
       isFBB: "N",
       status: "200",
       type: "banner",
-      behaviour: "rolling",
-      reloadInterval: 10,
+      rolling: "10",
       ads: {
         "rolling-admob-test-ad-A": {
           adcode: "ca-app-pub-3940256099942544/2435281174",

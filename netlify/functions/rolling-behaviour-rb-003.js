@@ -1,7 +1,8 @@
-// Rolling Behaviour Test RB-002: Second request returns B, index becomes 2
+// Rolling Behaviour Test RB-003: Third request returns C, index wraps to 0
 // Waterfall: [A, B, C]
 // 1st requestToLoad -> returns A, index=1
 // 2nd requestToLoad -> returns B, index=2
+// 3rd requestToLoad -> returns C, index=0 (wrap)
 // All use Google AdMob test banner ad unit
 export const handler = async () => {
   return {
@@ -13,39 +14,39 @@ export const handler = async () => {
       type: "banner",
       rolling: "10",
       ads: {
-        "rb-002-ad-A": {
+        "rb-003-ad-A": {
           adcode: "ca-app-pub-3940256099942544/2435281174",
           pubid: "",
-          passback: "rb-002-ad-B",
+          passback: "rb-003-ad-B",
           adtype: "ce56da00-1a18-11e9-9ed2-02c31b446301",
           advidx: "ce56da00-1a18-11e9-9ed2-02c31b446301",
-          areaidx: "rb-002-area",
+          areaidx: "rb-003-area",
           adweight: "100",
           adv_price: "3",
           order: "1",
           width: "320",
           height: "50",
         },
-        "rb-002-ad-B": {
+        "rb-003-ad-B": {
           adcode: "ca-app-pub-3940256099942544/2435281174",
           pubid: "",
-          passback: "rb-002-ad-C",
+          passback: "rb-003-ad-C",
           adtype: "ce56da00-1a18-11e9-9ed2-02c31b446301",
           advidx: "ce56da00-1a18-11e9-9ed2-02c31b446301",
-          areaidx: "rb-002-area",
+          areaidx: "rb-003-area",
           adweight: "100",
           adv_price: "2",
           order: "2",
           width: "320",
           height: "50",
         },
-        "rb-002-ad-C": {
+        "rb-003-ad-C": {
           adcode: "ca-app-pub-3940256099942544/2435281174",
           pubid: "",
           passback: "",
           adtype: "ce56da00-1a18-11e9-9ed2-02c31b446301",
           advidx: "ce56da00-1a18-11e9-9ed2-02c31b446301",
-          areaidx: "rb-002-area",
+          areaidx: "rb-003-area",
           adweight: "100",
           adv_price: "1",
           order: "3",
