@@ -1,5 +1,4 @@
-// Always returns a valid AdMob test banner that will load successfully.
-// Used for visibility accumulation testing (fail→success transition).
+// Uses TEST adapter with adcode "vis-test-always-success" → BidmadBannerTESTAdapter succeeds immediately.
 export const handler = async () => {
   return {
     statusCode: 200,
@@ -10,14 +9,14 @@ export const handler = async () => {
       type: "banner",
       ads: {
         "vis-test-always-success": {
-          adcode: "ca-app-pub-3940256099942544/2435281174",
+          adcode: "vis-test-always-success",
           pubid: "",
           passback: "",
-          adtype: "ce56da00-1a18-11e9-9ed2-02c31b446301",
-          advidx: "23503470-4e23-4a84-a77b-a9fe25deb784",
+          adtype: "testtest-test-test-test-testtesttest",
+          advidx: "09316c92-262a-463f-a73b-1f1c34a6de94",
           areaidx: "vis-test-always-success",
           adweight: "100",
-          adv_price: "1",
+          adv_price: "10",
           order: "1",
           width: "320",
           height: "50",

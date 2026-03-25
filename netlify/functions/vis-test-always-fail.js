@@ -1,5 +1,4 @@
-// Always returns a fake ad network that will fail to load.
-// Used for visibility accumulation testing (failure retry flow).
+// Uses TEST adapter with adcode "vis-test-always-fail" → BidmadBannerTESTAdapter fails immediately.
 export const handler = async () => {
   return {
     statusCode: 200,
