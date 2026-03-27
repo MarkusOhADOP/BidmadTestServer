@@ -10,7 +10,7 @@ export const handler = async () => {
       ads: {
         "a1b2c3d4-0006-4000-8000-fyber300x250": {
           adcode: "128703",
-          pubid: "544324",
+          pubid: "544343",
           passback: "",
           adtype: "b0745bea-6069-11eb-8e02-021baddf8c08",
           advidx: "b0745bea-6069-11eb-8e02-021baddf8c08",
