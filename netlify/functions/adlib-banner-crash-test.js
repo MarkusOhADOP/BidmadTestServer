@@ -9,7 +9,7 @@ export const handler = async () => {
       isFBB: "N",
       status: "200",
       type: "banner",
-      rolling: "0",
+      rolling: "10",
       ads: {
         "f9d29451-6fc1-4527-b855-dd5b03052862": {
           adcode: "5ab217aeafe3a474b3be24dcfa8184ee",
