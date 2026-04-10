@@ -4,8 +4,8 @@
 // fields per-tier (device / location / neutral).
 //
 // Expected SDK behavior when this endpoint is wired in:
-//   - device-tier collected = { make, model, ua, ifa }              ← only the 4 trues
-//   - location-tier collected = { geo (with NSNulls if no perm), geofetch }  ← only geofetch is true
+//   - device-tier collected = { make, model, ua, ifa, mccmnc }      ← only the 5 trues
+//   - location-tier collected = { geofetch }                        ← only geofetch is true (no geo)
 //   - neutral collected = { os, osv, osVersion }                    ← only os + osv (osv writes osVersion as dual-key)
 //
 // The test confirms: SDK is per-key granular, not all-or-nothing.
@@ -34,6 +34,7 @@ export const handler = async (event) => {
         language: false,      // exclude
         langb: false,         // exclude
         carrier: false,       // exclude
+        mccmnc: true,         // include — verify TelephonyManager.getNetworkOperator path
         connectiontype: false,// exclude
         ifa: true,            // include
 
