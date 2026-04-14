@@ -246,8 +246,8 @@ export const handler = async () => {
   function onAdVideoClick() {
     var mgr = window._vastAdsManager;
     var url = mgr.getCurrentAd().data.clickThroughUrl;
+    // Click log is handled by native onClickDetected (triggered by window.open)
     window.open(url, "_blank");
-    sendLog("click");
   }
 
   function toggleSound(isOn) {
@@ -406,7 +406,7 @@ export const handler = async () => {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=300",
-      "ETag": '"ortb-advanced-v4-testvideo"'
+      "ETag": '"ortb-advanced-v5-click-dedup"'
     },
     body: html
   };
