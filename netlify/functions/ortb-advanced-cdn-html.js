@@ -344,7 +344,7 @@ export const handler = async () => {
         device: device
       };
       // TODO: Revert to "/bid/" + adInfo.zoneId after testing
-      var bidPath = "/bid/" + adInfo.zoneId + "/test";
+      var bidPath = "/bid/" + adInfo.zoneId + "/testvideo";
       console.log("[ORTB-ADV][JS] Step 4: POST " + bidPath);
       var resp = await fetch(bidPath, {
         method: "POST",
@@ -406,7 +406,7 @@ export const handler = async () => {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=300",
-      "ETag": '"ortb-advanced-v3-debug"'
+      "ETag": '"ortb-advanced-v4-testvideo"'
     },
     body: html
   };
