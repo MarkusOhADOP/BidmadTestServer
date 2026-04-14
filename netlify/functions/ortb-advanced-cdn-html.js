@@ -344,7 +344,7 @@ export const handler = async () => {
         device: device
       };
       // TODO: Revert to "/bid/" + adInfo.zoneId after testing
-      var bidPath = "/bid/" + adInfo.zoneId + "/testvideo";
+      var bidPath = "/bid/" + adInfo.zoneId + "/test";
       console.log("[ORTB-ADV][JS] Step 4: POST " + bidPath);
       var resp = await fetch(bidPath, {
         method: "POST",
