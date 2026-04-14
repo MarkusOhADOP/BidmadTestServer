@@ -342,8 +342,10 @@
         bidfloor: adInfo.bidfloor,
         device: device
       };
-      console.log("[ORTB-ADV][JS] Step 4: POST /bid/" + adInfo.zoneId);
-      var resp = await fetch("/bid/" + adInfo.zoneId, {
+      // TODO: Revert to "/bid/" + adInfo.zoneId after testing
+      var bidPath = "/bid/" + adInfo.zoneId + "/test";
+      console.log("[ORTB-ADV][JS] Step 4: POST " + bidPath);
+      var resp = await fetch(bidPath, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
