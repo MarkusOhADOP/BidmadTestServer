@@ -84,7 +84,10 @@ export const handler = async () => {
   /* ── Logging ── */
   function sendLog(type) {
     var m = window._adMeta;
-    if (!m) return;
+    if (!m) {
+      console.log("[ORTB-E2E][JS][Log] sendLog(" + type + ") skipped — no _adMeta");
+      return;
+    }
     var params = new URLSearchParams({
       request_id: m.requestId,
       adid: m.adid,
@@ -96,8 +99,8 @@ export const handler = async () => {
       price: String(m.price)
     });
     var url = "/log/" + type + "?" + params.toString();
-    console.log("[ORTB-ADV][JS][Log] sendLog(" + type + ") → " + url);
-    fetch(url).catch(function(e){ console.log("[ORTB-ADV][JS][Log] fetch error: " + e); });
+    console.log("[ORTB-E2E][JS][Log] sendLog(" + type + ") -> " + url);
+    fetch(url).catch(function(e){ console.log("[ORTB-E2E][JS][Log] fetch error: " + e); });
   }
 
   /* ── Visibility handler (called by native SDK every ~0.3s) ── */
@@ -106,7 +109,7 @@ export const handler = async () => {
     if (!window._adMeta.impressionSent) {
       var shouldImpress = (window._adType === "VAST") ? isVisible : (percentage >= 50);
       if (shouldImpress) {
-        console.log("[ORTB-ADV][JS][Vis] Impression triggered — type=" + window._adType + " visible=" + isVisible + " pct=" + percentage);
+        console.log("[ORTB-E2E][JS][Vis] Impression triggered — type=" + window._adType + " visible=" + isVisible + " pct=" + percentage);
         sendLog("impression");
         window._adMeta.impressionSent = true;
       }
@@ -124,17 +127,19 @@ export const handler = async () => {
 
   /* ── Click handler (called by native SDK on tap) ── */
   function onClickDetected(url) {
-    console.log("[ORTB-ADV][JS][Click] onClickDetected: " + url);
+    console.log("[ORTB-E2E][JS][Click] onClickDetected: " + url);
     sendLog("click");
   }
 
   /* ── Script (NO_VAST) rendering ── */
   function renderScript(adm, width, height) {
+    console.log("[ORTB-E2E][JS][Render] renderScript: " + width + "x" + height + " adm_length=" + adm.length);
     var c = document.getElementById("adContainer");
     c.style.width = width + "px";
     c.style.height = height + "px";
     c.style.display = "";
     c.innerHTML = "<div style='display:flex;align-items:center;justify-content:center;'>" + adm + "</div>";
+    console.log("[ORTB-E2E][JS][Render] renderScript complete — adContainer visible");
   }
 
   /* ── VAST rendering ── */
@@ -143,16 +148,20 @@ export const handler = async () => {
   var _vastPrevSoundVolume;
 
   async function renderVAST(adm, width, height) {
+    console.log("[ORTB-E2E][JS][Render] renderVAST: " + width + "x" + height + " adm_length=" + adm.length);
     window._vastAdWidth = width;
     window._vastAdHeight = height;
 
+    console.log("[ORTB-E2E][JS][Render] loading IMA SDK...");
     await loadScript("https://imasdk.googleapis.com/js/sdkloader/ima3.js");
+    console.log("[ORTB-E2E][JS][Render] IMA SDK loaded");
 
     _vastResponse = adm;
     initializeAdsManager(adm);
   }
 
   function initializeAdsManager(vastResponse) {
+    console.log("[ORTB-E2E][JS][VAST] initializeAdsManager");
     var adDisplayContainer = new google.ima.AdDisplayContainer(
       document.getElementById("adContainer")
     );
@@ -175,6 +184,7 @@ export const handler = async () => {
   }
 
   function onAdsManagerLoaded(event, adDisplayContainer) {
+    console.log("[ORTB-E2E][JS][VAST] onAdsManagerLoaded");
     try {
       adDisplayContainer.initialize();
       var adsManager = event.getAdsManager();
@@ -192,11 +202,13 @@ export const handler = async () => {
       setTimeout(function() {
         toggleSound(false);
         adsManager.start();
+        console.log("[ORTB-E2E][JS][VAST] adsManager.start() called");
       }, 100);
 
       /* signal load success — this is resolved by the main() promise chain */
       if (window._vastLoadResolve) window._vastLoadResolve();
     } catch(error) {
+      console.log("[ORTB-E2E][JS][VAST] onAdsManagerLoaded error: " + error.message);
       if (window._vastLoadReject) {
         window._vastLoadReject(new Error("IMA Load Fail"));
       }
@@ -204,10 +216,12 @@ export const handler = async () => {
   }
 
   function onAdStarted() {
+    console.log("[ORTB-E2E][JS][VAST] onAdStarted");
     var mgr = window._vastAdsManager;
     mgr.pause();
 
     _vastAdDuration = mgr.getCurrentAd().getDuration();
+    console.log("[ORTB-E2E][JS][VAST] ad duration=" + _vastAdDuration + "s");
 
     var container = document.getElementById("adContainer");
     container.style.width = window._vastAdWidth + "px";
@@ -222,30 +236,39 @@ export const handler = async () => {
   }
 
   function onAdComplete() {
+    console.log("[ORTB-E2E][JS][VAST] onAdComplete");
     showLastFrame();
   }
 
   function onAdError(error) {
+    console.log("[ORTB-E2E][JS][VAST] onAdError: " + (error.getError ? error.getError().getMessage() : error));
     if (window._vastLoadReject) {
       window._vastLoadReject(new Error("IMA Error"));
       window._vastLoadReject = null;
     } else {
       /* post-load error — inform native */
-      window.webkit.messageHandlers.onFail.postMessage("IMA Error");
+      if (getMobileOS() === "Android") {
+        Android.onFail("IMA Error");
+      } else {
+        window.webkit.messageHandlers.onFail.postMessage("IMA Error");
+      }
     }
   }
 
   function onAdPause() {
+    console.log("[ORTB-E2E][JS][VAST] onAdPause");
     autoSoundControll("Pause");
   }
 
   function onAdResume() {
+    console.log("[ORTB-E2E][JS][VAST] onAdResume");
     autoSoundControll("Resume");
   }
 
   function onAdVideoClick() {
     var mgr = window._vastAdsManager;
     var url = mgr.getCurrentAd().data.clickThroughUrl;
+    console.log("[ORTB-E2E][JS][VAST] onAdVideoClick: " + url);
     // Click log is handled by native onClickDetected (triggered by window.open)
     window.open(url, "_blank");
   }
@@ -305,32 +328,66 @@ export const handler = async () => {
   }
 
   function replayAd() {
+    console.log("[ORTB-E2E][JS][VAST] replayAd");
     resetAdLastFrame();
     initializeAdsManager(_vastResponse);
+  }
+
+  /* ── Platform detection ── */
+  function getMobileOS() {
+    var ua = navigator.userAgent || navigator.vendor || window.opera;
+    if (/android/i.test(ua)) return "Android";
+    if (/iPhone|iPad|iPod/i.test(ua)) return "iOS";
+    return undefined;
   }
 
   /* ── Main flow ── */
   (async function main() {
     try {
-      console.log("[ORTB-ADV][JS] ▶ main() started");
+      var platform = getMobileOS();
+      var isAndroid = (platform === "Android");
+      console.log("[ORTB-E2E][JS] main() started — platform=" + platform + " ua=" + navigator.userAgent);
 
       /* 1. Get device info whitelist */
-      console.log("[ORTB-ADV][JS] Step 1: getDeviceInfoWhitelist...");
-      var whitelist = await NativeBridge.callNative("getDeviceInfoWhitelist");
-      console.log("[ORTB-ADV][JS] Step 1 ✓ whitelist keys: " + Object.keys(whitelist).length);
+      console.log("[ORTB-E2E][JS] Step 1: getDeviceInfoWhitelist...");
+      var whitelist;
+      if (isAndroid) {
+        var raw = Android.getDeviceInfoWhitelist();
+        console.log("[ORTB-E2E][JS] Step 1 raw whitelist: " + raw);
+        whitelist = JSON.parse(raw);
+      } else {
+        whitelist = await NativeBridge.callNative("getDeviceInfoWhitelist");
+      }
+      var whitelistKeys = Object.keys(whitelist);
+      var enabledCount = whitelistKeys.filter(function(k) { return whitelist[k]; }).length;
+      console.log("[ORTB-E2E][JS] Step 1 done: " + whitelistKeys.length + " total fields, " + enabledCount + " enabled");
 
       /* 2. Batch get device info for enabled fields */
       var enabledFields = Object.entries(whitelist)
         .filter(function(entry) { return entry[1]; })
         .map(function(entry) { return entry[0]; });
-      console.log("[ORTB-ADV][JS] Step 2: getDeviceInfo for " + enabledFields.length + " fields: " + enabledFields.join(", "));
-      var device = await NativeBridge.callNative("getDeviceInfo", { fields: enabledFields });
-      console.log("[ORTB-ADV][JS] Step 2 ✓ device keys: " + Object.keys(device).length);
+      console.log("[ORTB-E2E][JS] Step 2: getDeviceInfo for " + enabledFields.length + " fields: [" + enabledFields.join(", ") + "]");
+      var device;
+      if (isAndroid) {
+        var rawDevice = Android.getDeviceInfo(JSON.stringify(enabledFields));
+        console.log("[ORTB-E2E][JS] Step 2 raw device: " + rawDevice);
+        device = JSON.parse(rawDevice);
+      } else {
+        device = await NativeBridge.callNative("getDeviceInfo", { fields: enabledFields });
+      }
+      console.log("[ORTB-E2E][JS] Step 2 done: " + Object.keys(device).length + " device keys: [" + Object.keys(device).join(", ") + "]");
 
       /* 3. Get ad request info */
-      console.log("[ORTB-ADV][JS] Step 3: getAdRequestInfo...");
-      var adInfo = await NativeBridge.callNative("getAdRequestInfo");
-      console.log("[ORTB-ADV][JS] Step 3 ✓ zoneId=" + adInfo.zoneId + " size=" + adInfo.width + "x" + adInfo.height);
+      console.log("[ORTB-E2E][JS] Step 3: getAdRequestInfo...");
+      var adInfo;
+      if (isAndroid) {
+        var rawInfo = Android.getAdRequestInfo();
+        console.log("[ORTB-E2E][JS] Step 3 raw adInfo: " + rawInfo);
+        adInfo = JSON.parse(rawInfo);
+      } else {
+        adInfo = await NativeBridge.callNative("getAdRequestInfo");
+      }
+      console.log("[ORTB-E2E][JS] Step 3 done: zoneId=" + adInfo.zoneId + " areaIdx=" + adInfo.areaIdx + " size=" + adInfo.width + "x" + adInfo.height + " bidfloor=" + adInfo.bidfloor + " type=" + adInfo.type);
 
       /* 4. POST /bid/{zoneId} */
       var body = {
@@ -345,14 +402,15 @@ export const handler = async () => {
       };
       // TODO: Revert to "/bid/" + adInfo.zoneId after testing
       var bidPath = "/bid/" + adInfo.zoneId + "/test";
-      console.log("[ORTB-ADV][JS] Step 4: POST " + bidPath);
+      console.log("[ORTB-E2E][JS] Step 4: POST " + bidPath + " body=" + JSON.stringify(body).substring(0, 500));
       var resp = await fetch(bidPath, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body)
       });
+      console.log("[ORTB-E2E][JS] Step 4 HTTP status=" + resp.status);
       var data = await resp.json();
-      console.log("[ORTB-ADV][JS] Step 4 ✓ response status=" + data.statusCode + " vidoeType=" + data.vidoeType);
+      console.log("[ORTB-E2E][JS] Step 4 done: statusCode=" + data.statusCode + " videoType=" + data.videoType + " vidoeType=" + data.vidoeType + " seatbid_count=" + (data.seatbid ? data.seatbid.length : 0));
 
       /* 5. Parse response */
       var statusCode = data.statusCode;
@@ -361,7 +419,7 @@ export const handler = async () => {
       var bid = data.seatbid[0].bid[0];
       var adm = bid.adm;
       if (!adm) throw new Error("Empty adm");
-      console.log("[ORTB-ADV][JS] Step 5 ✓ adm length=" + adm.length + " domain=" + (data.domain || "n/a"));
+      console.log("[ORTB-E2E][JS] Step 5 done: adm_length=" + adm.length + " price=" + bid.price + " adomain=" + JSON.stringify(bid.adomain) + " domain=" + (data.domain || "n/a") + " netName=" + (data.netName || "n/a"));
 
       /* Store metadata for logging */
       window._adMeta = {
@@ -375,10 +433,12 @@ export const handler = async () => {
         areaIdx: adInfo.areaIdx,
         impressionSent: false
       };
-      window._adType = data.vidoeType || "NO_VAST";
+      window._adType = data.vidoeType || data.videoType || "NO_VAST";
+      console.log("[ORTB-E2E][JS] _adMeta set: " + JSON.stringify(window._adMeta));
+      console.log("[ORTB-E2E][JS] _adType=" + window._adType);
 
       /* 6. Render based on type */
-      console.log("[ORTB-ADV][JS] Step 6: rendering type=" + window._adType);
+      console.log("[ORTB-E2E][JS] Step 6: rendering type=" + window._adType);
       if (window._adType === "VAST") {
         /* wrap renderVAST in a promise that resolves when IMA is loaded */
         await new Promise(function(resolve, reject) {
@@ -391,10 +451,20 @@ export const handler = async () => {
       }
 
       /* 7. Report success */
-      console.log("[ORTB-ADV][JS] Step 7: ✓ Ad loaded — posting onLoad to native");
-      window.webkit.messageHandlers.onLoad.postMessage("");
+      console.log("[ORTB-E2E][JS] Step 7: SUCCESS — posting onLoad to native (platform=" + platform + ")");
+      if (isAndroid) {
+        Android.onLoad();
+      } else {
+        window.webkit.messageHandlers.onLoad.postMessage("");
+      }
     } catch (error) {
-      window.webkit.messageHandlers.onFail.postMessage(error.message || "Unknown error");
+      var msg = error.message || "Unknown error";
+      console.log("[ORTB-E2E][JS] FAILED: " + msg + " stack=" + (error.stack || "n/a"));
+      if (getMobileOS() === "Android") {
+        Android.onFail(msg);
+      } else {
+        window.webkit.messageHandlers.onFail.postMessage(msg);
+      }
     }
   })();
 </script>
@@ -406,7 +476,7 @@ export const handler = async () => {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=300",
-      "ETag": '"ortb-advanced-v5-click-dedup"'
+      "ETag": '"ortb-advanced-v6-cross-platform-e2e"'
     },
     body: html
   };
