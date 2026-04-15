@@ -10,7 +10,7 @@ const BROKEN_DATA_URL = "data:image/png;base64,!!!notvalidbase64!!!";
 
 export const handler = async () => ({
   statusCode: 200,
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
   body: JSON.stringify({
     id: "test-native-asset-fail-" + Date.now(),
     statusCode: 200,

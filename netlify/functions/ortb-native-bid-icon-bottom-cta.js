@@ -10,7 +10,7 @@ const TINY_PNG = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1
 
 export const handler = async () => ({
   statusCode: 200,
-  headers: { "Content-Type": "application/json" },
+  headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
   body: JSON.stringify({
     id: "test-native-icon-bottom-cta-" + Date.now(),
     statusCode: 200,
