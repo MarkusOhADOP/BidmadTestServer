@@ -492,14 +492,33 @@ export const handler = async () => {
         bidfloor: adInfo.bidfloor,
         device: device
       };
-      // TODO: Revert to "/bid/" + adInfo.zoneId after testing
-      var bidPath = "/bid/" + adInfo.zoneId + "/test";
-      console.log("[ORTB-E2E][JS] Step 4: POST " + bidPath + " body=" + JSON.stringify(body).substring(0, 500));
-      var resp = await fetch(bidPath, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body)
-      });
+      // Native test scenarios: route to absolute test bid URLs (E2E testing).
+      // For real ad zoneIds, use relative URL (resolves to baseURL = diffusion).
+      var NATIVE_TEST_BID_BASE = "https://bidmad-test-server.netlify.app/.netlify/functions/";
+      var ZONE_TO_NATIVE_BID = {
+        "native-icon-bottom-cta":  "ortb-native-bid-icon-bottom-cta",
+        "native-icon-right-cta":   "ortb-native-bid-icon-right-cta",
+        "native-image-only":       "ortb-native-bid-image-only",
+        "native-combined-top":     "ortb-native-bid-combined-top",
+        "native-combined-bottom":  "ortb-native-bid-combined-bottom",
+        "native-asset-fail":       "ortb-native-bid-asset-fail",
+      };
+      var bidPath;
+      var bidFetchOptions;
+      if (ZONE_TO_NATIVE_BID[adInfo.zoneId]) {
+        bidPath = NATIVE_TEST_BID_BASE + ZONE_TO_NATIVE_BID[adInfo.zoneId];
+        bidFetchOptions = { method: "GET" };  // native test endpoints are GET
+      } else {
+        // TODO: Revert to "/bid/" + adInfo.zoneId after testing
+        bidPath = "/bid/" + adInfo.zoneId + "/test";
+        bidFetchOptions = {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body)
+        };
+      }
+      console.log("[ORTB-E2E][JS] Step 4: " + bidFetchOptions.method + " " + bidPath + " body=" + JSON.stringify(body).substring(0, 500));
+      var resp = await fetch(bidPath, bidFetchOptions);
       console.log("[ORTB-E2E][JS] Step 4 HTTP status=" + resp.status);
       var data = await resp.json();
       console.log("[ORTB-E2E][JS] Step 4 done: statusCode=" + data.statusCode + " videoType=" + data.videoType + " vidoeType=" + data.vidoeType + " seatbid_count=" + (data.seatbid ? data.seatbid.length : 0));
@@ -577,7 +596,7 @@ export const handler = async () => {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=300",
-      "ETag": '"ortb-advanced-v7-native"'
+      "ETag": '"ortb-advanced-v8-native-zone-routing"'
     },
     body: html
   };
