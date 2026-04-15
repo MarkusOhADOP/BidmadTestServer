@@ -9,13 +9,12 @@ export const handler = async () => {
       isFBB: "N",
       status: "200",
       type: "banner",
-      // areaidx (the dict key) becomes adUnit.realZoneId in the SDK and
-      // is exposed to the CDN HTML's JS via the `zoneId` field of
-      // getAdRequestInfo. We use "native-combined-top" so the JS routing
-      // table (ZONE_TO_NATIVE_BID) maps it to the matching native bid
-      // mock endpoint. UUID validation is bypassed in test mode.
+      // Dict key (becomes adUnit.realZoneId -> JS adInfo.zoneId) stays
+      // a UUID. The areaidx (becomes adUnit.areaIndex -> JS adInfo.areaIdx)
+      // carries the routing string. The CDN HTML routes native-* keys
+      // by inspecting BOTH adInfo.zoneId and adInfo.areaIdx.
       ads: {
-        "native-combined-top": {
+        "a1b2c3d4-0009-4000-8000-ortb0300x250": {
           adcode: "",
           pubid: "all",
           passback: "",

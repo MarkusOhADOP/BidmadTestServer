@@ -505,8 +505,12 @@ export const handler = async () => {
       };
       var bidPath;
       var bidFetchOptions;
-      if (ZONE_TO_NATIVE_BID[adInfo.zoneId]) {
-        bidPath = NATIVE_TEST_BID_BASE + ZONE_TO_NATIVE_BID[adInfo.zoneId];
+      // Match by zoneId (publisher input) OR areaIdx (Compass routing key).
+      var nativeRouteKey = ZONE_TO_NATIVE_BID[adInfo.zoneId]
+        ? adInfo.zoneId
+        : (ZONE_TO_NATIVE_BID[adInfo.areaIdx] ? adInfo.areaIdx : null);
+      if (nativeRouteKey) {
+        bidPath = NATIVE_TEST_BID_BASE + ZONE_TO_NATIVE_BID[nativeRouteKey];
         bidFetchOptions = { method: "GET" };  // native test endpoints are GET
       } else {
         // TODO: Revert to "/bid/" + adInfo.zoneId after testing
@@ -596,7 +600,7 @@ export const handler = async () => {
     headers: {
       "Content-Type": "text/html; charset=utf-8",
       "Cache-Control": "public, max-age=300",
-      "ETag": '"ortb-advanced-v8-native-zone-routing"'
+      "ETag": '"ortb-advanced-v9-native-zone-or-area-routing"'
     },
     body: html
   };
