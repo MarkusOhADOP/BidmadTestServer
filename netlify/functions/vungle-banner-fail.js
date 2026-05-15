@@ -9,7 +9,7 @@ export const handler = async () => {
       type: "banner",
       ads: {
         "a1b2c3d4-0007-4000-8000-vunglfail001": {
-          adcode: "65b10e27b1868948d4c0a251",
+          adcode: "65e97a61c8510816ad30c67a",
           pubid: "INVALID_PLACEMENT",
           passback: "",
           adtype: "1e1947d2-eff2-11e9-9e1d-02c31b446301",
