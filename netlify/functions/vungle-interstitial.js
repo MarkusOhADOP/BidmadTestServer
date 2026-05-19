@@ -9,8 +9,8 @@ export const handler = async () => {
       type: "full",
       ads: {
         "a1b2c3d4-0007-4000-8000-vunglinter001": {
-          adcode: "6686a5c94d6765df32feb2b4",
-          pubid: "NEW_IOS_INT_1-0192131",
+          adcode: "65e97a61c8510816ad30c67a",
+          pubid: "VUNGLE_TEST_INTERSTITIAL-4353621",
           passback: "",
           adtype: "1e1947d2-eff2-11e9-9e1d-02c31b446301",
           advidx: "1e1947d2-eff2-11e9-9e1d-02c31b446301",

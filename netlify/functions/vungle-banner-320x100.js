@@ -9,8 +9,8 @@ export const handler = async () => {
       type: "banner",
       ads: {
         "a1b2c3d4-0007-4000-8000-vungl320x100": {
-          adcode: "6686a5c94d6765df32feb2b4",
-          pubid: "_______IOS_____OB___-1761443",
+          adcode: "65e97a61c8510816ad30c67a",
+          pubid: "VUNGLE_TEST_BANNER_320X50-9610238",
           passback: "",
           adtype: "1e1947d2-eff2-11e9-9e1d-02c31b446301",
           advidx: "1e1947d2-eff2-11e9-9e1d-02c31b446301",
