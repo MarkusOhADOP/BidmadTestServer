@@ -9,8 +9,8 @@ export const handler = async () => {
       type: "v",
       ads: {
         "native-vungle-001": {
-          adcode: "6525109ed38855ef54ab0e60",
-          pubid: "NATIVEADTEST-8194832",
+          adcode: "6686a5c94d6765df32feb2b4",
+          pubid: "_______IOS________-5922713",
           passback: "",
           adtype: "1e1947d2-eff2-11e9-9e1d-02c31b446301",
           advidx: "1e1947d2-eff2-11e9-9e1d-02c31b446301",
